@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './components/Header';
 import ErrorCard from './components/ErrorCard';
 import UploadButton from './components/UploadButton';
 import UploadModal from './components/UploadModal';
 import { usePosts } from './hooks/usePosts';
+import { useLikes } from './hooks/useLikes';
 
 function App() {
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = React.useState(false);
   const { posts, loading, error } = usePosts();
+  const { likedPosts, toggleLike, isUpdating } = useLikes();
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -23,7 +25,13 @@ function App() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
-              <ErrorCard key={post.id} {...post} />
+              <ErrorCard
+                key={post.id}
+                {...post}
+                isLiked={likedPosts.has(post.id!)}
+                onLike={toggleLike}
+                isUpdating={isUpdating}
+              />
             ))}
           </div>
         )}
