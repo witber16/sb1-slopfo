@@ -2,15 +2,30 @@ import React from 'react';
 import { Share2, ThumbsUp } from 'lucide-react';
 
 interface ErrorCardProps {
+  id: string;
   image: string;
   title: string;
   description: string;
   date: string;
   likes: number;
   comments: number;
+  isLiked: boolean;
+  onLike: (id: string) => void;
+  isUpdating: boolean;
 }
 
-export default function ErrorCard({ image, title, description, date, likes }: ErrorCardProps) {
+export default function ErrorCard({
+  id,
+  image,
+  title,
+  description,
+  date,
+  likes,
+  comments,
+  isLiked,
+  onLike,
+  isUpdating
+}: ErrorCardProps) {
   return (
     <article className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
       <img
@@ -26,11 +41,21 @@ export default function ErrorCard({ image, title, description, date, likes }: Er
           <span className="text-gray-500">{date}</span>
           
           <div className="flex items-center space-x-4">
-            <button className="flex items-center space-x-1 text-gray-600 hover:text-red-500">
-              <ThumbsUp className="h-4 w-4" />
+            <button
+              onClick={() => onLike(id)}
+              disabled={isUpdating}
+              className={`flex items-center space-x-1 ${
+                isLiked
+                  ? 'text-red-500'
+                  : 'text-gray-600 hover:text-red-500'
+              } transition-colors duration-200 ${
+                isUpdating ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              <ThumbsUp className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
               <span>{likes}</span>
             </button>
-            <button className="text-gray-600 hover:text-red-500">
+            <button className="text-gray-600 hover:text-red-500 transition-colors duration-200">
               <Share2 className="h-4 w-4" />
             </button>
           </div>
