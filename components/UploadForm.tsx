@@ -51,13 +51,13 @@ export default function UploadForm({
         </div>
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-            Description
+            Description of Irony
           </label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => onDescriptionChange(e.target.value)}
-            placeholder="Describe the error..."
+            placeholder="Explain the irony or paste the relevant part of the job description..."
             className="w-full p-2 border border-gray-200 rounded-lg h-24 resize-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
           />
         </div>

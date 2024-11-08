@@ -1,5 +1,5 @@
 # Ironic JD
-## Bring humor, transparency, and realism to job descriptions, attracting candidates who value authenticity and honesty.
+## Bring humor, transparency, and realism to job descriptions, attracting users who value authenticity and honesty.
 
 ### Error Categories:
 - Typographical Mistakes: Showcase common typos, such as misspelled words or grammar issues.
