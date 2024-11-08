@@ -54,12 +54,21 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     setError('');
 
     try {
-      // Upload image to Firebase Storage
-      const imageRef = ref(storage, `posts/${Date.now()}-${selectedFile.name}`);
-      await uploadBytes(imageRef, selectedFile);
-      const imageUrl = await getDownloadURL(imageRef);
+      // Generate a unique filename with timestamp and original extension
+      const fileExtension = selectedFile.name.split('.').pop();
+      const filename = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExtension}`;
+      const storageRef = ref(storage, `posts/${filename}`);
 
-      // Create post in Firestore
+      // Upload the file with proper content type
+      await uploadBytes(storageRef, selectedFile, {
+        contentType: selectedFile.type,
+        customMetadata: {
+          originalName: selectedFile.name
+        }
+      });
+
+      const imageUrl = await getDownloadURL(storageRef);
+
       const newPost: Omit<Post, 'id'> = {
         image: imageUrl,
         title: title.trim(),
@@ -77,13 +86,12 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
       await addDoc(collection(db, 'posts'), newPost);
       setIsSuccess(true);
       
-      // Reset form after showing success for a moment
       setTimeout(() => {
         handleClose();
       }, 1500);
     } catch (err) {
       console.error('Upload error:', err);
-      setError('Failed to upload. Please try again.');
+      setError('Failed to upload. Please ensure you have proper permissions and try again.');
     } finally {
       setIsUploading(false);
     }
@@ -102,7 +110,10 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           <X className="h-6 w-6" />
         </button>
 
-        <h2 className="text-xl font-semibold mb-4">Upload Screenshot</h2>
+        <h2 className="text-xl font-semibold mb-2">Share the Irony</h2>
+        <p className="text-gray-600 text-sm mb-6">
+          Found a job description that's unintentionally hilarious? Share it with us!
+        </p>
         
         <UploadForm
           preview={preview}
