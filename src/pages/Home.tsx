@@ -58,14 +58,14 @@ export default function Home() {
             <div className="space-y-4">
               <div className="aspect-video relative overflow-hidden rounded-lg bg-gray-100">
                 <img
-                  src="https://images.unsplash.com/photo-1499750310107-5fef28a66643"
-                  alt="A person working at a desk with papers scattered around"
+                  src="https://png.pngtree.com/png-clipart/20240621/original/pngtree-cat-with-glasses-meme-sticker-tshirt-illustration-png-image_15380701.png"
+                  alt="A cat with glassess meme about to reveal the irony"
                   className="object-cover w-full h-full"
                 />
               </div>
               <h3 className="text-lg font-semibold">Warning: Brutal Honesty Ahead</h3>
               <p className="text-gray-600">
-                Our job descriptions may contain traces of sarcasm, unfiltered truths, and the 
+                Our content may contain traces of sarcasm, unfiltered truths, and the 
                 occasional existential crisis. Proceed with a sense of humor.
               </p>
             </div>
@@ -123,9 +123,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* All Posts Section */}
+      {/* All Ironic Section */}
       <main id="posts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 className="text-2xl font-bold mb-8">All Posts</h2>
+        <h2 className="text-2xl font-bold mb-8">All Ironic Find</h2>
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500" />
