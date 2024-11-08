@@ -102,7 +102,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           <X className="h-6 w-6" />
         </button>
 
-        <h2 className="text-xl font-semibold mb-4">Upload Screenshot</h2>
+        <h2 className="text-xl font-semibold mb-4">Share the Irony</h2>
         
         <UploadForm
           preview={preview}
