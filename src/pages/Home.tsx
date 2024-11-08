@@ -26,8 +26,7 @@ export default function Home() {
                 Welcome to Ironic JD
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                Bringing humor, transparency, and realism to job descriptions. Because let's face it, 
-                work isn't always sunshine and rainbows.
+                A website dedicated to sharing funny or frustrating job description errors. Bringing humor, transparency, and realism to job descriptions. 
               </p>
             </div>
             <div className="space-x-4">
