@@ -16,7 +16,7 @@ interface UploadFormProps {
 }
 
 const sanitizeInput = (input: string): string => {
-  // Allow only alphanumeric characters, spaces, and basic punctuation
+  // Only remove special characters, preserve case
   return input.replace(/[^a-zA-Z0-9\s.,!?()-]/g, '');
 };
 
