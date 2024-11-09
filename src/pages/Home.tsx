@@ -26,8 +26,9 @@ export default function Home() {
                 Welcome to Ironic JD
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
-                A website dedicated to sharing funny or frustrating job description errors. Bringing humor, transparency, and realism to job descriptions. 
+                A website dedicated to sharing funny or frustrating job description errors. Bringing humor, transparency, and realism to the job market. 
               </p>
+        
             </div>
             <div className="space-x-4">
               <button 
@@ -79,7 +80,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center space-x-2 mb-8">
               <TrendingUp className="h-6 w-6 text-red-500" />
-              <h2 className="text-2xl font-bold">Latest Irony</h2>
+              <h2 className="text-2xl font-bold">Spotlight</h2>
             </div>
             
             {loading ? (

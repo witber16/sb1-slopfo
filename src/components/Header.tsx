@@ -14,6 +14,12 @@ export default function Header() {
           
           <nav className="flex items-center space-x-4">
             <Link 
+              to="/about"
+              className="text-gray-600 hover:text-red-500 transition-colors duration-200 font-semibold"
+            >
+              About
+            </Link>
+            <Link 
               to="/disclaimer"
               className="text-gray-600 hover:text-red-500 transition-colors duration-200 font-semibold"
             >
