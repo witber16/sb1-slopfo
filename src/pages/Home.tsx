@@ -28,6 +28,7 @@ export default function Home() {
               <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl">
                 A website dedicated to sharing funny or frustrating job description errors. Bringing humor, transparency, and realism to the job market. 
               </p>
+        
             </div>
             <div className="space-x-4">
               <button 
