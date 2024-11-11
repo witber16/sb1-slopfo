@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { X } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+import { db, storage } from '../../lib/firebase';
 import UploadForm from './UploadForm';
-import { Post } from '../types/Post';
+import { Post } from '../../types/Post';
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -54,12 +54,10 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     setError('');
 
     try {
-      // Generate a unique filename with timestamp and original extension
       const fileExtension = selectedFile.name.split('.').pop();
       const filename = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExtension}`;
       const storageRef = ref(storage, `posts/${filename}`);
 
-      // Upload the file with proper content type
       await uploadBytes(storageRef, selectedFile, {
         contentType: selectedFile.type,
         customMetadata: {
