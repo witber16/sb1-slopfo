@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ErrorCard from '../components/ErrorCard';
-import UploadButton from '../components/UploadButton';
-import UploadModal from '../components/UploadModal';
+import ErrorCard from '../components/posts/ErrorCard';
+import UploadButton from '../components/upload/UploadButton';
+import UploadModal from '../components/upload/UploadModal';
 import ConnectionStatus from '../components/ConnectionStatus';
 import { usePosts } from '../hooks/usePosts';
 import { useLikes } from '../hooks/useLikes';
@@ -12,7 +12,6 @@ export default function Home() {
   const { posts, loading, error } = usePosts();
   const { likedPosts, toggleLike, isUpdating } = useLikes();
 
-  // Get the latest post for the featured section
   const latestPost = posts[0];
 
   return (
@@ -58,8 +57,8 @@ export default function Home() {
             <div className="space-y-4">
               <div className="aspect-video relative overflow-hidden rounded-lg bg-gray-100">
                 <img
-                  src="https://png.pngtree.com/png-clipart/20240621/original/pngtree-cat-with-glasses-meme-sticker-tshirt-illustration-png-image_15380701.png"
-                  alt="A cat with glassess meme about to reveal the irony"
+                  src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=1000"
+                  alt="A cat with glasses looking at a job description"
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -89,33 +88,12 @@ export default function Home() {
             ) : error ? (
               <div className="text-center text-red-500">{error}</div>
             ) : latestPost ? (
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-                <img
-                  src={latestPost.image}
-                  alt={latestPost.title}
-                  className="w-full h-96 object-cover"
-                />
-                <div className="p-8">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">{latestPost.title}</h3>
-                  <p className="text-gray-600 mb-4">{latestPost.description}</p>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">{latestPost.date}</span>
-                    <div className="flex items-center space-x-4">
-                      <button
-                        onClick={() => latestPost.id && toggleLike(latestPost.id)}
-                        disabled={isUpdating}
-                        className={`flex items-center space-x-1 ${
-                          latestPost.id && likedPosts.has(latestPost.id)
-                            ? 'text-red-500'
-                            : 'text-gray-600 hover:text-red-500'
-                        } transition-colors duration-200`}
-                      >
-                        <span>{latestPost.likes}</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ErrorCard
+                {...latestPost}
+                isLiked={likedPosts.has(latestPost.id!)}
+                onLike={toggleLike}
+                isUpdating={isUpdating}
+              />
             ) : (
               <div className="text-center text-gray-500">No posts yet. Be the first to share!</div>
             )}
@@ -125,7 +103,7 @@ export default function Home() {
 
       {/* All Ironic Section */}
       <main id="posts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 className="text-2xl font-bold mb-8">All Ironic Find</h2>
+        <h2 className="text-2xl font-bold mb-8">All Ironic Finds</h2>
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500" />
