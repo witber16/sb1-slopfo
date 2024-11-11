@@ -30,14 +30,10 @@ export default function ErrorCard({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  // Capitalize first letter of each word only for display
   const capitalizeTitle = (text: string) => {
     return text
       .split(' ')
-      .map(word => {
-        // Only capitalize if the word isn't already capitalized
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      })
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };
 
@@ -47,8 +43,7 @@ export default function ErrorCard({
   return (
     <>
       <article className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
-        {/* Image Container with Fixed Aspect Ratio */}
-        <div className="relative pt-[56.25%]"> {/* 16:9 Aspect Ratio */}
+        <div className="relative pt-[56.25%]">
           <img
             src={image}
             alt={formattedTitle}

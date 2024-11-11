@@ -7,3 +7,7 @@ Use icons from lucide-react for logos.
 Use stock photos from unsplash where appropriate, only valid URLs you know exist. Do not download the images, only link to them in image tags.
 
 For main features or logic of the application, remember to put comment to the code to explain what the functionality does.
+
+File structure to be more modular and maintainable.
+
+Ensured all components are properly exported and imported.
