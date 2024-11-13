@@ -9,7 +9,8 @@ export default function UploadButton({ onClick }: UploadButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="fixed bottom-6 right-6 bg-red-500 text-white rounded-full p-4 shadow-lg hover:bg-red-600 transition-colors duration-300 flex items-center gap-2"
+      className="fixed bottom-6 right-6 bg-primary-500 text-secondary-900 rounded-full p-4 shadow-lg hover:bg-primary-600 transition-colors duration-300 flex items-center gap-2"
+      title="Share an ironic job description"
     >
       <Upload className="h-6 w-6" />
     </button>
