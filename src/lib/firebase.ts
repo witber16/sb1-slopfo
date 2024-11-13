@@ -6,6 +6,7 @@ import {
   initializeFirestore,
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -28,6 +29,9 @@ const db = initializeFirestore(app, {
 
 // Initialize Storage
 const storage = getStorage(app);
+
+// Initialize Auth
+const auth = getAuth(app);
 
 // Enable offline persistence
 enableIndexedDbPersistence(db, {
