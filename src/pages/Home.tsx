@@ -7,7 +7,6 @@ import ConnectionStatus from '../components/ConnectionStatus';
 import { usePosts } from '../hooks/usePosts';
 import { useLikes } from '../hooks/useLikes';
 import { AlertTriangle, TrendingUp } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 export default function Home() {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -51,11 +50,8 @@ export default function Home() {
       {/* Reality Check Card */}
       <section className="w-full py-12 bg-gray-50">
         <div className="container px-4 md:px-6 mx-auto">
-          <motion.div 
-            className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div 
+            className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-8 transform transition-all duration-300 hover:-translate-y-1"
           >
             <div className="flex items-center space-x-2 mb-4">
               <AlertTriangle className="h-6 w-6 text-primary-500" />
@@ -75,7 +71,7 @@ export default function Home() {
                 occasional existential crisis. Proceed with a sense of humor.
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -110,15 +106,12 @@ export default function Home() {
 
       {/* All Ironic Section */}
       <main id="posts" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8"
+        <div
+          className="mb-8 transform transition-all duration-300 hover:-translate-y-1"
         >
           <h2 className="text-2xl font-bold mb-2 text-secondary-900">All Ironic Finds</h2>
           <p className="text-secondary-500">Discover the most interesting job description quirks shared by our community.</p>
-        </motion.div>
+        </div>
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
