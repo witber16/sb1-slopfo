@@ -44,4 +44,4 @@ enableIndexedDbPersistence(db, {
   }
 });
 
-export { app, db, storage };
+export { app, db, storage, auth };
