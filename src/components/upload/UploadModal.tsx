@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { collection, addDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../../lib/firebase';
+import { db } from '../../lib/firebase';
+import { uploadAsset } from '../../services/assetService';
 import UploadForm from './UploadForm';
 import { Post } from '../../types/Post';
 
@@ -20,28 +20,16 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const resetForm = () => {
-    setSelectedFile(null);
-    setPreview('');
-    setTitle('');
-    setDescription('');
-    setError('');
-    setIsSuccess(false);
-  };
-
-  const handleClose = () => {
-    resetForm();
-    onClose();
-  };
-
-  const handleFileSelect = (file: File) => {
-    setSelectedFile(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedFile(null);
+      setPreview('');
+      setTitle('');
+      setDescription('');
+      setError('');
+      setIsSuccess(false);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,18 +42,8 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
     setError('');
 
     try {
-      const fileExtension = selectedFile.name.split('.').pop();
-      const filename = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExtension}`;
-      const storageRef = ref(storage, `posts/${filename}`);
-
-      await uploadBytes(storageRef, selectedFile, {
-        contentType: selectedFile.type,
-        customMetadata: {
-          originalName: selectedFile.name
-        }
-      });
-
-      const imageUrl = await getDownloadURL(storageRef);
+      const filename = `posts/${Date.now()}-${Math.random().toString(36).substring(2)}.${selectedFile.name.split('.').pop()}`;
+      const imageUrl = await uploadAsset(selectedFile, filename);
 
       const newPost: Omit<Post, 'id'> = {
         image: imageUrl,
@@ -77,7 +55,6 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
           day: 'numeric'
         }),
         likes: 0,
-        comments: 0,
         createdAt: Date.now()
       };
 
@@ -85,31 +62,40 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
       setIsSuccess(true);
       
       setTimeout(() => {
-        handleClose();
+        onClose();
       }, 1500);
     } catch (err) {
       console.error('Upload error:', err);
-      setError('Failed to upload. Please ensure you have proper permissions and try again.');
+      setError('Failed to upload. Please try again.');
     } finally {
       setIsUploading(false);
     }
+  };
+
+  const handleFileSelect = (file: File) => {
+    setSelectedFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="relative bg-white rounded-lg w-full max-w-md p-6 overflow-y-auto max-h-[90vh]">
         <button
-          onClick={handleClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-secondary-400 hover:text-secondary-600"
         >
           <X className="h-6 w-6" />
         </button>
 
-        <h2 className="text-xl font-semibold mb-2">Share the Irony</h2>
-        <p className="text-gray-600 text-sm mb-6">
+        <h2 className="text-xl font-semibold mb-2 text-secondary-900">Share the Irony</h2>
+        <p className="text-secondary-600 text-sm mb-6">
           Found a job description that's unintentionally hilarious? Share it with us!
         </p>
         
